@@ -1,8 +1,9 @@
 from django.db import models
 
 # author model
+
 class Author(models.Model):
-    author_id = models.AutoField(primary_key = True)
+    author_id = models.AutoField(primary_key=True)
     author_name = models.CharField(max_length=100)
     author_email = models.EmailField()
     author_contact = models.CharField(max_length=15)
@@ -13,11 +14,10 @@ class Author(models.Model):
 
 # book model
 class Book(models.Model):
-    book_id = models.AutoField(primary_key = True)
+    book_id = models.AutoField(primary_key=True)
     book_name = models.CharField(max_length=100)
-    author_id = models.ForeignKey(Author,on_delete=models.CASCADE)      
-    
+    author_id = models.ForeignKey(
+        Author, on_delete=models.CASCADE, related_name="authors")
+
     class Meta:
         db_table = "book"
-
-
