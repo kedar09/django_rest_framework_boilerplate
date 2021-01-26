@@ -1,13 +1,19 @@
 # from django.conf.urls import url
 from django.urls import path
-from .apis import getAuthors, getBooksAndAuthors, addAuthor, addBook, getAuthorById, getBookAndAuthorById
+from .apis import add_get_authors, get_add_update_author_by_id, add_get_books, get_add_update_book_by_id
 
 urlpatterns = [
-    path('getAuthors/', getAuthors),
-    path('getAuthorById/<int:pk>/', getAuthorById),
-    # path('getBooks/', getBooks),
-    path('getBooksAndAuthors/', getBooksAndAuthors),
-    path('getBookAndAuthorById/<int:pk>/', getBookAndAuthorById),
-    path('addAuthor/', addAuthor),
-    path('addBook/', addBook),
+    path('getAuthors/', add_get_authors),
+    path('addAuthor/', add_get_authors),
+    path('getAuthorById/<int:pk>/', get_add_update_author_by_id),
+    path('updateAuthor/<int:pk>/', get_add_update_author_by_id),
+    path('deleteAuthor/<int:pk>/', get_add_update_author_by_id),
+    
+    # path('getBooks/', add_get_books),
+    path('getBooksAndAuthors/', add_get_books),
+    path('addBook/', add_get_books),
+    path('getBookAndAuthorById/<int:pk>/', get_add_update_book_by_id),
+    path('updateBook/<int:pk>/', get_add_update_book_by_id),
+    path('deleteBook/<int:pk>/', get_add_update_book_by_id),
+    
 ]

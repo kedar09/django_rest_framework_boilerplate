@@ -10,10 +10,10 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer(many=True, read_only=True)
+    authors = AuthorSerializer(many=True, read_only=True)
 
     class Meta:
         model = Book
-        # fields = ('book_id', 'book_name', 'author')
+        # fields = ('book_id', 'book_name', 'authors')
         fields = ('__all__')
         depth = 1
