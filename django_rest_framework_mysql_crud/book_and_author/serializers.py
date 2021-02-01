@@ -8,11 +8,11 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = ('author_id', 'author_name', 'author_email', 'author_contact')
         
 class BookSerializer(serializers.ModelSerializer):
-    authors = AuthorSerializer(read_only=True)
+    authors = AuthorSerializer()
     # author_id = serializers.IntegerField(write_only=True)
     
     class Meta:
         model = Book
-        # fields = ('book_id', 'book_name', 'authors')
-        fields = ('__all__')
+        fields = ('book_id', 'book_name', 'authors')
+        # fields = ('__all__')
         depth = 1

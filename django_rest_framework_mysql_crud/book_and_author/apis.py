@@ -58,21 +58,29 @@ def add_get_books(request):
 
     elif request.method == 'POST':
         # data = JSONParser().parse(request)
-        # try:
-        #     author_details = Author.objects.get(pk=request.data['author_id'])
-        # except Book.DoesNotExist:
-        #     return Response(status=status.HTTP_404_NOT_FOUND)
-        # request.data['authors']=author_details
-        # print(author_details)
-        add_book_serializer = BookSerializer(data=request.data)
+        try:
+            author_details = Author.objects.get(pk=request.data['author_id'])
+        except Book.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        book = Book.objects.create(
+            book_name=request.data['book_name'],
+            authors=author_details
+        )
         
+        # book = {
+        #     'book_name': request.data['book_name'],
+        #     'authors': author_details
+        # }
+        add_book_serializer = BookSerializer(data=book)
+        print(add_book_serializer)
         if add_book_serializer.is_valid():
             add_book_serializer.save()
             return Response(add_book_serializer.data, status=status.HTTP_201_CREATED)
         return Response(add_book_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE', 'POST'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def get_add_update_book_by_id(request, pk):
     try:
         book_and_author_details = Book.objects.get(pk=pk)
@@ -94,15 +102,3 @@ def get_add_update_book_by_id(request, pk):
     elif request.method == 'DELETE':
         book_and_author_details.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-    elif request.method == 'POST':
-        # data = JSONParser().parse(request)
-        data = {'book_name': request.data['book_name'],
-        'authors': book_and_author_details}
-        print(book_and_author_details)
-        add_book_serializer = BookSerializer(data=data)
-        print(add_book_serializer)
-        if add_book_serializer.is_valid():
-            add_book_serializer.save()
-            return Response(add_book_serializer.data, status=status.HTTP_201_CREATED)
-        return Response(add_book_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
