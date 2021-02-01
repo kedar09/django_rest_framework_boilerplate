@@ -1,7 +1,6 @@
 from django.db import models
 
 # author model
-
 class Author(models.Model):
     author_id = models.AutoField(primary_key=True)
     author_name = models.CharField(max_length=100)

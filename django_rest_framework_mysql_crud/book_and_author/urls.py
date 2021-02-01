@@ -15,5 +15,4 @@ urlpatterns = [
     path('getBookAndAuthorById/<int:pk>/', get_add_update_book_by_id),
     path('updateBook/<int:pk>/', get_add_update_book_by_id),
     path('deleteBook/<int:pk>/', get_add_update_book_by_id),
-    
 ]
