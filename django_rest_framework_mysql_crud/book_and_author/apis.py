@@ -58,27 +58,26 @@ def add_get_books(request):
 
     elif request.method == 'POST':
         # data = JSONParser().parse(request)
-        try:
-            author_details = Author.objects.get(pk=request.data['author_id'])
-        except Book.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+        # try:
+            # author_details = Author.objects.get(pk=request.data['author_id'])
+            # book = Book.objects.create(
+            #     book_name=request.data['book_name'],
+            #     author_id=author_details
+            # )
+            add_book_serializer = BookSerializer(data=request.data)
+            if add_book_serializer.is_valid():
+                add_book_serializer.save()
+                return Response(add_book_serializer.data, status=status.HTTP_201_CREATED)
+            return Response(add_book_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        book = Book.objects.create(
-            book_name=request.data['book_name'],
-            authors=author_details
-        )
-        
+        # except Book.DoesNotExist:
+        #     return Response(status=status.HTTP_404_NOT_FOUND)
+
         # book = {
         #     'book_name': request.data['book_name'],
         #     'authors': author_details
         # }
-        add_book_serializer = BookSerializer(data=book)
-        print(add_book_serializer)
-        if add_book_serializer.is_valid():
-            add_book_serializer.save()
-            return Response(add_book_serializer.data, status=status.HTTP_201_CREATED)
-        return Response(add_book_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+        
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def get_add_update_book_by_id(request, pk):
