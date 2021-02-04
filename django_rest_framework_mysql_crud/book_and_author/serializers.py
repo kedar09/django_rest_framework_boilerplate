@@ -9,14 +9,13 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
-    authors = serializers.PrimaryKeyRelatedField(many=True, queryset=Author.objects.all())
-
+    authors = AuthorSerializer()
 
     class Meta:
         model = Book
         fields = ('book_id', 'book_name', 'authors')
         # fields = ('__all__')
-        depth = 1
+        # # depth = 1
 
     # def create(self, validated_data):
     #     authors_data = validated_data.pop('authors')
