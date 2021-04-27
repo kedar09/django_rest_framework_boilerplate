@@ -9,17 +9,9 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
-    authors = AuthorSerializer()
-
+    # author_id = serializers.PrimaryKeyRelatedField(read_only=True)
+    author_id = AuthorSerializer(read_only=True)
+    
     class Meta:
         model = Book
-        fields = ('book_id', 'book_name', 'authors')
-        # fields = ('__all__')
-        # # depth = 1
-
-    # def create(self, validated_data):
-    #     authors_data = validated_data.pop('authors')
-    #     book = Book.objects.create(**validated_data)
-    #     for author_data in authors_data:
-    #         Author.objects.create(book=book, **authors_data)
-    #     return book
+        fields = ('book_id', 'book_name', 'author_id')

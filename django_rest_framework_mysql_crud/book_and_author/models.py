@@ -17,7 +17,7 @@ class Author(models.Model):
 class Book(models.Model):
     book_id = models.AutoField(primary_key=True)
     book_name = models.CharField(max_length=100)
-    authors = models.ForeignKey(
+    author_id = models.ForeignKey(
         Author, on_delete=models.CASCADE, related_name='authors')
 
     class Meta:
