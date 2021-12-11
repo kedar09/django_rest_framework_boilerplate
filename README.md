@@ -1,1 +1,1 @@
-# django_rest_framework_boilerplate
+# CRUD operations using Django REST framework, MySQL
